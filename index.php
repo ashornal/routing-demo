@@ -23,6 +23,27 @@ $f3->route('GET /', function()
 }
 );
 
+//define a route using parameters
+$f3->route('GET /hello/@name', function($f3, $params)
+{
+    $f3->set('name', $params['name']);
+    $template = new Template();
+    echo $template->render('views/hello.html');
+}
+);
+
+//define a route using parameters
+$f3->route('GET /hi/@first/@last', function($f3, $params)
+{
+    $f3->set('first', $params['first']);
+    $f3->set('last', $params['last']);
+    $f3->set('message', 'Hi');
+
+    $template = new Template();
+    echo $template->render('views/hi.html');
+}
+);
+
 //Define a page1 route
 $f3->route('GET /page1', function()
 {
@@ -52,10 +73,12 @@ $f3->route('GET /language/@lang', function($f3,$params)
     {
         case 'russian':
             echo 'Privet!'; break;
+        //reroute to another page
+        case 'french':
+            $f3->reroute('/');
         default:
-            echo 'Hello!'; break;
+            $f3->error(404);
     }
-    echo "<h1>Hello, $name</h1>";
 }
 );
 
