@@ -27,7 +27,6 @@ $f3->route('GET /', function()
 $f3->route('GET /page1', function()
 {
     echo '<h1>This is page 1</h1>';
-
 }
 );
 
@@ -35,11 +34,33 @@ $f3->route('GET /page1', function()
 $f3->route('GET /page1/subpage-a', function()
 {
     echo '<h1>This is page 1, subpage a</h1>';
-
 }
 );
 
-//Define a page2 route
+//Define a route using parameters
+$f3->route('GET /hello/@name', function($f3,$params)
+{
+    $name = $params['name'];
+    echo "<h1>Hello, $name</h1>";
+}
+);
+
+//Define a route using parameters
+$f3->route('GET /language/@lang', function($f3,$params)
+{
+    switch($params['lang'])
+    {
+        case 'russian':
+            echo 'Privet!'; break;
+        default:
+            echo 'Hello!'; break;
+    }
+    echo "<h1>Hello, $name</h1>";
+}
+);
+
+
+
 $f3->route('GET /jewelry/rings/toe-rings', function()
 {
     //echo '<h1>Buy a toe ring today!</h1>';
